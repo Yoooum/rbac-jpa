@@ -16,21 +16,21 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Permission create(Permission permission) {
-        return null;
+        return permissionRepository.save(permission);
     }
 
     @Override
     public Permission select(Long id) {
-        return null;
+        return permissionRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在权限ID：" + id));
     }
 
     @Override
     public Permission update(Permission permission) {
-        return null;
+        return permissionRepository.save(permission);
     }
 
     @Override
     public void delete(Long id) {
-
+        permissionRepository.deleteById(id);
     }
 }

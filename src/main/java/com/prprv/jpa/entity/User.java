@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,15 +17,11 @@ import java.util.Set;
 /**
  * @author Yoooum
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Schema(description = "用户信息")
-public class User {
-    @Id
-    @Schema(description = "用户序号")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class User extends AbstractEntity {
     @Schema(description = "用户姓名")
     @Column(nullable = false, unique = true)
     private String username;
@@ -45,10 +43,8 @@ public class User {
     @Schema(description = "用户头像")
     private String avatar;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Schema(description = "用户生日")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate birthday;
 
     @Schema(description = "用户签名")

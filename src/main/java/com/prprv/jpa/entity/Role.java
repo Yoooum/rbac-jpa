@@ -4,21 +4,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Set;
 
 /**
  * @author Yoooum
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Schema(description = "角色信息")
-public class Role {
-    @Id
-    @Schema(description = "角色序号")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Role extends AbstractEntity {
     @Schema(description = "角色标识")
     @NotBlank(message = "角色标识不能为空")
     @Column(unique = true, nullable = false)

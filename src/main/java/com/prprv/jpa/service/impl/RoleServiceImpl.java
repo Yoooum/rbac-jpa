@@ -18,21 +18,21 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role create(Role role) {
-        return null;
+        return roleRepository.save(role);
     }
 
     @Override
     public Role select(Long id) {
-        return null;
+        return roleRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在角色ID：" + id));
     }
 
     @Override
     public Role update(Role role) {
-        return null;
+        return roleRepository.save(role);
     }
 
     @Override
     public void delete(Long id) {
-
+        roleRepository.deleteById(id);
     }
 }

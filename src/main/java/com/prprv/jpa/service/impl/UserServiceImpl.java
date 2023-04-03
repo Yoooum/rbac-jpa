@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User select(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在的用户ID " + id));
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在用户ID：" + id));
     }
 
     @Override

@@ -5,5 +5,5 @@ import com.prprv.jpa.entity.Role;
 /**
  * @author Yoooum
  */
-public interface RoleService extends CrudService<Role> {
+public interface RoleService extends Crud<Role> {
 }

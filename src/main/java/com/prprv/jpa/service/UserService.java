@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 /**
  * @author Yoooum
  */
-public interface UserService extends CrudService<User> {
+public interface UserService extends Crud<User> {
     Page<User> selectUserPage(Integer page, Integer size);
 }
