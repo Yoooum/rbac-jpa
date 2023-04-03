@@ -19,23 +19,23 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     @Override
-    public User createUser(User user) {
+    public User create(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User selectUser(Long id) {
+    public User select(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在的用户ID " + id));
     }
 
     @Override
-    public User updateUser(User user) {
+    public User update(User user) {
         if (user.getId() == null) throw new RuntimeException("用户ID不能为空，更新失败");
         return userRepository.save(user);
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 

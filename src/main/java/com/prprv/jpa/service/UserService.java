@@ -6,10 +6,6 @@ import org.springframework.data.domain.Page;
 /**
  * @author Yoooum
  */
-public interface UserService {
-    User createUser(User user);
-    User selectUser(Long id);
-    User updateUser(User user);
-    void deleteUser(Long id);
+public interface UserService extends CrudService<User> {
     Page<User> selectUserPage(Integer page, Integer size);
 }

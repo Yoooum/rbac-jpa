@@ -42,12 +42,12 @@ class UserServiceImplTest {
         user.setUsername("服务类测试");
         user.setPassword("123456");
         user.setEmail("service@prprv.com");
-        userSaved = userService.createUser(user);
+        userSaved = userService.create(user);
         System.out.println("create " + userSaved);
     }
 
     void selectUser() {
-        User user = userService.selectUser(userSaved.getId());
+        User user = userService.select(userSaved.getId());
         System.out.println("select " + user);
     }
 
@@ -55,12 +55,12 @@ class UserServiceImplTest {
         userSaved.setUsername("服务类测试更新");
         userSaved.setPhone(123456789L);
         userSaved.setBirthday(LocalDate.now());
-        User user = userService.updateUser(userSaved);
+        User user = userService.update(userSaved);
         System.out.println("update " + user);
     }
 
     void deleteUser() {
-        userService.deleteUser(userSaved.getId());
+        userService.delete(userSaved.getId());
         System.out.println("delete " + userSaved);
     }
 

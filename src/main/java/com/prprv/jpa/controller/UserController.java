@@ -19,22 +19,22 @@ public class UserController {
 
     @PostMapping("/create")
     public User createUser(User user) {
-        return userService.createUser(user);
+        return userService.create(user);
     }
 
     @PutMapping("/update")
     public User updateUser(User user) {
-        return userService.updateUser(user);
+        return userService.update(user);
     }
 
     @GetMapping("/select/{id}")
     public User selectUser(@PathVariable Long id) {
-        return userService.selectUser(id);
+        return userService.select(id);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        userService.delete(id);
     }
 
     @GetMapping("/select")
