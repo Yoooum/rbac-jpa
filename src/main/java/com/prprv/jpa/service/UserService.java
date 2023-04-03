@@ -1,13 +1,15 @@
 package com.prprv.jpa.service;
 
 import com.prprv.jpa.entity.User;
-
-import java.util.Set;
+import org.springframework.data.domain.Page;
 
 /**
  * @author Yoooum
  */
 public interface UserService {
-    void createUser(User user);
-    Set<User> findByRole(String role);
+    User createUser(User user);
+    User selectUser(Long id);
+    User updateUser(User user);
+    void deleteUser(Long id);
+    Page<User> selectUserPage(Integer page, Integer size);
 }

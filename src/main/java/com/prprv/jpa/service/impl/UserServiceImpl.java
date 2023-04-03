@@ -1,16 +1,13 @@
 package com.prprv.jpa.service.impl;
 
 import com.prprv.jpa.entity.User;
-import com.prprv.jpa.repo.PermissionRepository;
-import com.prprv.jpa.repo.RoleRepository;
 import com.prprv.jpa.repo.UserRepository;
 import com.prprv.jpa.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Yoooum
@@ -19,23 +16,32 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    final UserRepository userRepository;
-    final RoleRepository roleRepository;
-    final PermissionRepository permissionRepository;
 
+    private final UserRepository userRepository;
     @Override
-    public void createUser(User user) {
-        userRepository.save(user);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public Set<User> findByRole(String role) {
-        return null;
+    public User selectUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在的用户ID " + id));
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    @Override
+    public User updateUser(User user) {
+        if (user.getId() == null) throw new RuntimeException("用户ID不能为空，更新失败");
+        return userRepository.save(user);
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 
+    @Override
+    public Page<User> selectUserPage(Integer page, Integer size) {
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+        return userRepository.findAll(pageable);
+    }
 }

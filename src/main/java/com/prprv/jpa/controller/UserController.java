@@ -1,58 +1,45 @@
 package com.prprv.jpa.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prprv.jpa.entity.User;
-import com.prprv.jpa.entity.request.UserRequest;
 import com.prprv.jpa.service.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author Yoooum
  */
+@CrossOrigin
 @RestController
+@Tag(name = "用户管理")
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     final UserServiceImpl userService;
-    final ObjectMapper objectMapper;
-    @PostMapping("/create")
-    public void createUser(@RequestBody UserRequest req) {
-        try {
-            System.out.println(objectMapper.writeValueAsString(req));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @DeleteMapping("/delete/{username}")
-    public void deleteUser(@PathVariable String username) {
-        System.out.println(username);
+    @PostMapping("/create")
+    public User createUser(User user) {
+        return userService.createUser(user);
     }
 
     @PutMapping("/update")
-    public void updateUser(@RequestBody UserRequest req) {
-        try {
-            System.out.println(objectMapper.writeValueAsString(req));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public User updateUser(User user) {
+        return userService.updateUser(user);
     }
 
-    @GetMapping("/query/{username}")
-    public void findUser(@PathVariable String username) {
-        System.out.println(username);
+    @GetMapping("/select/{id}")
+    public User selectUser(@PathVariable Long id) {
+        return userService.selectUser(id);
     }
 
-    @GetMapping("/query/all")
-    public List<User> listUser() {
-        return userService.findAll();
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
     }
-    @GetMapping(value = "/query", params = {"page", "size"})
-    public void listUser(@RequestParam int page, @RequestParam int size) {
-        System.out.println(page + " " + size);
+
+    @GetMapping("/select")
+    public Object selectUserPage(@RequestParam Integer page, @RequestParam Integer size) {
+        return userService.selectUserPage(page, size);
     }
 }
