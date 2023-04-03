@@ -1,6 +1,5 @@
 package com.prprv.jpa.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prprv.jpa.entity.User;
 import com.prprv.jpa.service.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
