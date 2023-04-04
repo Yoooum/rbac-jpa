@@ -1,6 +1,7 @@
 package com.prprv.jpa.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.prprv.jpa.entity.User;
 import com.prprv.jpa.repo.UserRepository;
 import com.prprv.jpa.service.UserService;
@@ -26,6 +27,9 @@ class UserServiceImplTest {
 
     @Resource
     UserRepository userRepository;
+
+    @Resource
+    JsonMapper jsonMapper;
     User userSaved;
 
     @Test
@@ -67,7 +71,7 @@ class UserServiceImplTest {
     void selectUserPage() {
         List<User> users = new ArrayList<>();
         // 生成30个用户，当前时间作为用户名密码邮箱
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 9; i++) {
             // 延迟
             try {
                 Thread.sleep(1);
@@ -81,7 +85,7 @@ class UserServiceImplTest {
             users.add(user);
         }
         userRepository.saveAll(users);
-        Page<User> page = userService.selectUserPage(0, 10);
-        System.out.println("page " + new ObjectMapper().valueToTree(page));
+        Page<User> page = userService.selectUserPage(0, 3);
+        System.out.println("page " + jsonMapper.valueToTree(page));
     }
 }

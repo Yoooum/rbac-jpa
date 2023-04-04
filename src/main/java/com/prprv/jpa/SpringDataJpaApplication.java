@@ -16,11 +16,12 @@ public class SpringDataJpaApplication {
         SpringApplication.run(SpringDataJpaApplication.class, args);
     }
 
+    /**
+     * 解决Jackson序列化LocalDateTime时报错，启用JSR310时间序列化。
+     * @return JsonMapper
+     */
     @Bean
     public JsonMapper jsonMapper() {
-        JsonMapper jsonMapper = new JsonMapper();
-        jsonMapper.registerModule(new JavaTimeModule());
-        return jsonMapper;
+        return JsonMapper.builder().addModule(new JavaTimeModule()).build();
     }
-
 }
