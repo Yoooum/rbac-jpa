@@ -1,6 +1,5 @@
 package com.prprv.jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -17,18 +16,18 @@ import java.time.LocalDateTime;
  * 抽象实体类。
  * <p>
  * {@link Data}
- * lombok注解，自动添加getter、setter、toString、equals、hashCode等方法。
+ * - lombok注解，自动添加getter、setter、toString、equals、hashCode等方法。
  * {@link MappedSuperclass}
- * jpa注解标识父类。标注的类将不是一个完整的实体类，不会映射到数据库表，但是它的属性都将映射到子类的数据库字段中。
+ * - jpa注解标识父类。标注的类将不是一个完整的实体类，不会映射到数据库表，但是它的属性都将映射到子类的数据库字段中。
  * <p>
  * {@link AuditingEntityListener}
- * 实体监听器，用于自动填充创建时间 {@link CreatedDate} 、更新时间 {@link LastModifiedDate} 等字段。
+ * - 实体监听器，用于自动填充创建时间 {@link CreatedDate} 、更新时间 {@link LastModifiedDate} 等字段。
  * 需要在配置类中添加 {@link EnableJpaAuditing} 注解才能生效。
  * <p>
  * {@link JsonIgnoreProperties}
- * jackson注解，用于忽略json序列化时的某些属性。
+ * - jackson注解，用于忽略json序列化时的某些属性。
  * {@code @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})}
- * 忽略hibernateLazyInitializer、handler属性。直接使用bean时，避免json序列号失败。
+ * - 忽略hibernateLazyInitializer、handler属性。直接使用bean时，避免json序列号失败。
  *
  * @author Yoooum
  */
@@ -43,21 +42,21 @@ public abstract class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "ID")
-    private Long id;
+    protected Long id;
 
     /**
      * 自动填充创建时间。
      */
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @Schema(description = "创建时间")
-    private LocalDateTime createdDate;
+    protected LocalDateTime createTime;
 
     /**
      * 自动填充更新时间。
      */
     @LastModifiedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @Schema(description = "更新时间")
-    private LocalDateTime lastModified;
+    protected LocalDateTime updateTime;
 }

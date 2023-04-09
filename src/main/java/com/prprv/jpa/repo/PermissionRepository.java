@@ -12,5 +12,6 @@ import java.util.Set;
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
     void deletePermissionByPermission(String permission);
+
     Set<Permission> findByPermissionIn(Set<String> permission);
 }

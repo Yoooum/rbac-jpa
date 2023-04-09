@@ -1,6 +1,5 @@
 package com.prprv.jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,7 +37,7 @@ public class User extends AbstractEntity {
     @Schema(description = "用户头像")
     private String avatar;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     @Schema(description = "用户生日")
     private LocalDate birthday;
 
