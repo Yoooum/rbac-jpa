@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 @Component
 public class JwtTokenProvider {
-    private int expiration = 1000 * 60 * 60 * 24;
+    private final int expiration = 1000 * 60 * 60 * 24;
     private RSAPublicKey publicKey;
     private RSAPrivateKey privateKey;
 

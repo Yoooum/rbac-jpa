@@ -17,12 +17,12 @@ import java.util.Map;
  * @author Yoooum
  */
 @RestController
-public class authorizedController {
+public class AuthorizedController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public authorizedController(JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthorizedController(JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -33,11 +33,9 @@ public class authorizedController {
     }
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginRequest loginRequest) {
-        String username = loginRequest.username;
-        String password = loginRequest.password;
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsername(loginRequest.username)
                 .orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.password, user.getPassword())) {
             throw new BadCredentialsException("Invalid username or password");
         }
 
