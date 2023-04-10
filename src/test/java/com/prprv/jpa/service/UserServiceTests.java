@@ -45,7 +45,7 @@ class UserServiceTests {
         names.forEach(name -> {
             User user = new User();
             user.setUsername(name.trim());
-            user.setPassword("123456");
+            user.setPassword("$2a$10$aLj/fbW7KryAVb31AXTHb.6Q0T/yn09RiVUiynnhwS29IdagIXN/q");
             user.setEmail(name.trim() + "@prprv.com");
             // 暂停100毫秒，防止创建时间相同
             try {

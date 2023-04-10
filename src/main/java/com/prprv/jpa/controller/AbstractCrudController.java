@@ -63,14 +63,10 @@ public abstract class AbstractCrudController<T extends AbstractEntity, D extends
                            @RequestParam("size") Integer size,
                            @RequestParam("sort") String sort,
                            @RequestParam("direction") String direction) {
-        Pageable pageable = null;
-        if (direction.equalsIgnoreCase("ASC")) {
-            pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        }
-        else if (direction.equalsIgnoreCase("DESC")) {
-            pageable = PageRequest.of(page, size, Sort.Direction.DESC, sort);
-        }
-        else {
+        Pageable pageable;
+        if (direction.equals("asc") || direction.equals("desc")) {
+            pageable = PageRequest.of(page, size, Sort.Direction.fromString(direction), sort);
+        } else {
             pageable = Pageable.unpaged();
         }
         return repository.findAll(pageable);

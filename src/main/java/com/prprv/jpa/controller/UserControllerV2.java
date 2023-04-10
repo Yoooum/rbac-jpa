@@ -3,10 +3,7 @@ package com.prprv.jpa.controller;
 import com.prprv.jpa.entity.User;
 import com.prprv.jpa.repo.UserRepository;
 import com.prprv.jpa.service.UserService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -26,5 +23,11 @@ public class UserControllerV2 extends AbstractCrudController<User, UserRepositor
     @PutMapping(value = "/role",params = {"userId"})
     public User setRole(Long userId, @RequestBody Set<Long> roleId) {
         return userService.setRole(userId, roleId);
+    }
+
+    @PostMapping("/create")
+    @Override
+    public User save(User entity) {
+        return super.save(entity);
     }
 }
