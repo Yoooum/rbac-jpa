@@ -17,6 +17,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
+ * 这是一个扩展了 OncePerRequestFilter 的过滤器，用于授权。
+ * 当用户试图访问需要特定角色才能访问的资源时，JwtAuthorizationFilter 会检查 JWT 中是否包含相应的角色信息。
+ * 如果用户拥有所需的角色，则允许访问，否则拒绝访问。
  * @author Yoooum
  */
 @Component

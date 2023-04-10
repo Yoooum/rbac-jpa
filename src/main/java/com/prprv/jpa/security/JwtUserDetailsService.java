@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 这是一个实现 UserDetailsService 接口的类，用于从数据库或其他数据源中加载用户信息。
+ * JwtAuthenticationProvider 会调用 JwtUserDetailsService 加载用户信息，以验证 JWT 中的用户信息是否有效。
  * @author Yoooum
  */
 @Service
@@ -24,6 +26,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * 从数据库中加载用户信息，然后将用户的角色和权限信息转换为Spring Security中的GrantedAuthority对象，并构造一个UserDetails对象来表示这个用户的身份。
+     * @param username 用户名
+     * @return UserDetails UserDetails实现类，这里使用Security自带的User
+     * @throws UsernameNotFoundException 用户不存在
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -35,6 +43,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
             });
         });
+        // 返回一个UserDetails实现类，这里使用Security自带的User
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

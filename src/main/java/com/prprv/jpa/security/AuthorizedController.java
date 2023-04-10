@@ -28,9 +28,9 @@ public class AuthorizedController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     record LoginRequest(String username, String password) {
     }
+
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.username)

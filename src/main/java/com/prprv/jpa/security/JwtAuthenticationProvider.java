@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
+ * 这是一个实现 AuthenticationProvider 接口的类，用于验证 JWT。
+ * 当用户提供有效的 JWT 时，JwtAuthenticationFilter 会调用 JwtAuthenticationProvider 进行验证。
+ * 如果 JWT 有效，则 JwtAuthenticationProvider 会返回一个 Authentication 对象，其中包含用户信息，如用户名和角色。
  * @author Yoooum
  */
 @Component
